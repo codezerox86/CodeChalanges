@@ -32,3 +32,77 @@ Constraints:
     1 <= target.length <= 10
     s and target consist of lowercase English letters.
 */
+
+public class Solution 
+{
+    /*
+        Analysis:
+            - If target can be formed in n copies, then each character is present in s, n times.
+            - There are two cases:
+                # Target has each character reapeating only once in itself.
+                # Target has some characters repeating multiple times in itself.
+            - Solution is to count how many words each char can form and to find minimum of those counts.
+            - For example, if we have s = "ilovecodingonleetcode", target = "code"
+              we have:
+              c o d e
+              2 4 2 4  //counts of each char in source
+              2 4 2 4  //final words count
+            - For example if we have s = "abbaccaddaeea", target = "aaaaa"
+              we have:
+              aaaaa
+              5     //we process only first a and skip the rest
+              1     //final words count
+    */
+
+    private const int noCountSet = -1;
+
+    public int RearrangeCharacters(string s, string target) 
+    {
+        var finalWordsCount = noCountSet;
+
+        for (int i = 0; i < target.Length; i++)
+        {
+            var targetChar = target[i];
+
+            if (!s.Contains(targetChar))
+            {
+                //target char is not present at all in source string, so we can't build target string
+                return 0;
+            }
+
+            var targetCharIndex = target.IndexOf(targetChar);
+            if (targetCharIndex < i && targetCharIndex != -1)
+            {
+                //we are checking char which we already processed, so we skip it
+                continue;
+            }
+
+            //char is being processed for the first time
+
+            var charCountInTarget = target.Count(x => x == targetChar);
+            var charCountInSource = s.Count(x => x == targetChar);
+            var currentWordsCount = charCountInSource / charCountInTarget;
+            
+            if (finalWordsCount == noCountSet)
+            {
+                //we are setting finalWordsCount for the first time
+                finalWordsCount = currentWordsCount;
+                continue;
+            }
+
+            if (currentWordsCount < finalWordsCount)
+            {
+                finalWordsCount = currentWordsCount;
+            }
+        }
+
+        return finalWordsCount;
+    }
+
+    public void Run()
+    {
+        Console.WriteLine(RearrangeCharacters("ilovecodingonleetcode", "code"));
+        Console.WriteLine(RearrangeCharacters("abcba", "abc"));
+        Console.WriteLine(RearrangeCharacters("abbaccaddaeea", "aaaaa"));
+    }
+}
