@@ -50,13 +50,13 @@ public class Solution
             - For example if we have s = "abbaccaddaeea", target = "aaaaa"
               we have:
               aaaaa
-              5     //we process only first a and skip the rest
-              1     //final words count
+              55555     //we process only first a and skip the rest
+              11111     //final words count
     */
 
     private const int noCountSet = -1;
 
-    public int RearrangeCharacters(string s, string target) 
+    public int RearrangeCharacters(string s, string target) //first idea
     {
         var finalWordsCount = noCountSet;
 
@@ -99,10 +99,58 @@ public class Solution
         return finalWordsCount;
     }
 
+
+    //second idea
+    //as I was not thinking much about the complexity in first idea, leet code remined me that it works in O(n^2)
+    //got hint from comunitty that good old trick [c - 'a']++ can help and did the rest
+    //no neted loops this time, producing O(n) complexity
+    public int RearrangeCharactersV2(string s, string target) 
+    {
+        var finalWordsCount = noCountSet;
+
+        byte[] charCountInSource = new byte[26];
+        foreach (var c in s)
+        {
+            charCountInSource[c - 'a']++;
+        }
+
+        byte[] charCountInTarget = new byte[26];
+        foreach (var c in target)
+        {
+            charCountInTarget[c - 'a']++;
+        }
+
+        for (byte i = 0; i < target.Length; i++)
+        {
+            var index = target[i] - 'a';
+            var currentWordsCount = charCountInSource[index] / charCountInTarget[index];
+
+            if (currentWordsCount == 0)
+            {
+                return 0;
+            }
+
+            //there is no need to check if char is already processed, because it will do no harm
+            //same char will report the same number of words and that is fine
+            if (finalWordsCount == noCountSet)
+            {
+                finalWordsCount = currentWordsCount;
+                continue;
+            }
+
+            if (currentWordsCount < finalWordsCount)
+            {
+                finalWordsCount = currentWordsCount;
+            }
+        }
+
+        return finalWordsCount;
+    }
+
     public void Run()
     {
-        Console.WriteLine(RearrangeCharacters("ilovecodingonleetcode", "code"));
-        Console.WriteLine(RearrangeCharacters("abcba", "abc"));
-        Console.WriteLine(RearrangeCharacters("abbaccaddaeea", "aaaaa"));
+        Console.WriteLine(RearrangeCharactersV2("ilovecodingonleetcode", "code"));
+        Console.WriteLine(RearrangeCharactersV2("abcba", "abc"));
+        Console.WriteLine(RearrangeCharactersV2("abbaccaddaeea", "aaaaa"));
     }
 }
