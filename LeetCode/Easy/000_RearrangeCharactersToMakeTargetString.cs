@@ -33,7 +33,7 @@ Constraints:
     s and target consist of lowercase English letters.
 */
 
-public class Solution 
+public class Solution0 
 {
     /*
         Analysis:
