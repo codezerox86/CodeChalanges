@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            new Solution1().Run();
+            new Solution2().Run();
         }
     }
 }

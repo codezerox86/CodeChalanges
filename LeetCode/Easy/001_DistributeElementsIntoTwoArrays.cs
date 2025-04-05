@@ -43,9 +43,11 @@ public class Solution1 {
               but I prefer array this time.
             - So, we have one array of size n, containing two subarrays, arr1 and arr2, where
               arr1 is growing from left to right (thus from index 0, 1 ... ) and arr2 is growing from right to left
-              (thus from index n-1, n-2 ..).
+              (thus from index n-1, n-2 ..). This way we do not have to worry about how they will grow.
             - For example if we have arr1 = [1, 5, 10, 15] and arr2 = [100, 200, 300, 400]
               we can represent it as [1, 5, 10, 15, 400, 300, 200, 100]
+            - Once we have arrays set, we reverse array in place by swapping elements, first with last, 
+              second with second last, etc.
     */
 
     public int[] ResultArray(int[] nums) 
