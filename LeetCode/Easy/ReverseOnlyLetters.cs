@@ -79,10 +79,10 @@ public class Solution2 {
         var result = ReverseOnlyLetters("-");
         Console.WriteLine(result);
 
-        // result = ReverseOnlyLetters("a-bC-dEf-ghIj");
-        // Console.WriteLine(result);
+        result = ReverseOnlyLetters("a-bC-dEf-ghIj");
+        Console.WriteLine(result);
 
-        // result = ReverseOnlyLetters("Test1ng-Leet=code-Q!");
-        // Console.WriteLine(result);
+        result = ReverseOnlyLetters("Test1ng-Leet=code-Q!");
+        Console.WriteLine(result);
     }
 }

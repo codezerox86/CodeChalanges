@@ -103,7 +103,7 @@ public class Solution0
     //second idea
     //as I was not thinking much about the complexity in first idea, leet code remined me that it works in O(n^2)
     //got hint from comunitty that good old trick [c - 'a']++ can help and did the rest
-    //no neted loops this time, producing O(n) complexity
+    //no nested loops this time, producing O(n) complexity
     public int RearrangeCharactersV2(string s, string target) 
     {
         var finalWordsCount = noCountSet;
